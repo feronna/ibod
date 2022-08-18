@@ -1,0 +1,314 @@
+<?php
+use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
+use yii\widgets\ActiveForm;
+use kartik\grid\GridView;
+use kartik\export\ExportMenu;
+use app\models\hronline\Kumpulankhidmat;
+use app\models\myidp\RptStatistikIdp;
+use app\models\myidp\VIdpKumpulan;
+use yii\bootstrap\Tabs;
+use app\models\myidp\TblYears;
+use app\models\myidp\StatistikSkimPentadbiran;
+
+echo $this->render('/idp/_topmenu');
+
+error_reporting(0);
+
+$gridColumnsP = [
+                                ['class' => 'kartik\grid\SerialColumn',
+                                    'header' => 'BIL',
+                                    'vAlign' => 'middle',
+                                    'hAlign' => 'center',
+                                    'headerOptions' => [
+                                        'style' => 'display: none;',
+                                    ],
+                                ],
+                                [
+                                    'label' => 'GRED SKIM',
+                                    'vAlign' => 'middle',
+                                    'hAlign' => 'left',
+                                    'format' => 'raw',
+                                    'value' => 'gred_skim',
+                                    'contentOptions' => ['style' => 'width:150px; white-space: normal;'],
+                                    'headerOptions' => [
+                                        'style' => 'display: none;',
+                                    ],
+                                    'pageSummary' => '<b>JUMLAH KESELURUHAN</b>',
+                                ],
+                                [
+                                    'label' => 'JUMLAH STAF',
+                                    'vAlign' => 'middle',
+                                    'hAlign' => 'center',
+                                    'format' => 'raw',
+                                    'value' => function ($model) use ($tahun){
+                                        
+                                        return StatistikSkimPentadbiran::countStaff($model->gred_skim, 0, $tahun);
+                                            
+                                    },
+                                    'contentOptions' => ['style' => 'width:75px; white-space: normal;'],
+                                    'headerOptions' => [
+                                        'style' => 'display: none;',
+                                    ],
+                                    'pageSummary' => true,
+                                ],
+                                [
+                                    'label' => 'JUMLAH',
+                                    'vAlign' => 'middle',
+                                    'hAlign' => 'center',
+                                    'format' => 'raw',
+                                    'value' => function ($model) use ($tahun){
+                                                      return StatistikSkimPentadbiran::countStaff($model->gred_skim, 1, $tahun);
+                                                },
+                                    'contentOptions' => ['style' => 'width:75px; white-space: normal;'],
+                                    'pageSummary' => true,
+                                ],
+                                [
+                                    'label' => '%',
+                                    'vAlign' => 'middle',
+                                    'hAlign' => 'center',
+                                    'format' => 'raw',
+                                    'value' => function ($model) use ($tahun){
+                                                      return StatistikSkimPentadbiran::countStaff($model->gred_skim, 2, $tahun);
+                                                },
+                                    'contentOptions' => ['style' => 'width:75px; white-space: normal;'],
+                                    'pageSummary' => false,
+                                ],
+                                [
+                                    'label' => 'JUMLAH',
+                                    'vAlign' => 'middle',
+                                    'hAlign' => 'center',
+                                    'format' => 'raw',
+//                                    'value' => function ($model){
+//                                                        return RptStatistikIdp::countStatistics($model->gred_skim, 2, 1);
+//                                                  },
+                                    'value' => function ($model) use ($tahun){
+                                                      return StatistikSkimPentadbiran::countStaff($model->gred_skim, 3, $tahun);
+                                                },
+                                    'contentOptions' => ['style' => 'width:75px; white-space: normal;'],
+                                    'pageSummary' => true,
+                                ],
+                                [
+                                    'label' => '%',
+                                    'vAlign' => 'middle',
+                                    'hAlign' => 'center',
+                                    'format' => 'raw',
+                                    'value' => function ($model) use ($tahun){
+                                                      return StatistikSkimPentadbiran::countStaff($model->gred_skim, 4, $tahun);
+                                                },
+                                    'contentOptions' => ['style' => 'width:75px; white-space: normal;'],
+                                    'pageSummary' => false,
+                                ],
+                                [
+                                    'label' => 'JUMLAH',
+                                    'vAlign' => 'middle',
+                                    'hAlign' => 'center',
+                                    'format' => 'raw',
+                                    'value' => function ($model) use ($tahun){
+                                                      return StatistikSkimPentadbiran::countStaff($model->gred_skim, 5, $tahun);
+                                                },
+                                    'contentOptions' => ['style' => 'width:75px; white-space: normal;'],
+                                    'pageSummary' => true,
+                                ],
+                                [
+                                    'label' => '%',
+                                    'vAlign' => 'middle',
+                                    'hAlign' => 'center',
+                                    'format' => 'raw',
+                                    'value' => function ($model) use ($tahun){
+                                                      return StatistikSkimPentadbiran::countStaff($model->gred_skim, 6, $tahun);
+                                                },
+                                    'contentOptions' => ['style' => 'width:75px; white-space: normal;'],
+                                    'pageSummary' => false,
+                                ],
+                               
+                            ];
+?>
+<!---- Hide previous modal screen ---->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $("#modal").on('hidden.bs.modal', function(){
+        $('#modalContent').empty();
+  });
+    });
+</script>
+<!--- /Hide previous modal screen ---->
+<style>
+a:link {
+  color: green;
+  background-color: transparent;
+  text-decoration: none;
+}
+a:visited {
+  color: indigo;
+  background-color: transparent;
+  text-decoration: none;
+}
+a:hover {
+  color: red;
+  background-color: transparent;
+  text-decoration: underline;
+}
+a:active {
+  color: yellow;
+  background-color: transparent;
+  text-decoration: underline;
+}
+</style>
+
+<div class="row">
+    <div class="col-xs-12 col-md-12 col-lg-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2><strong><i class="fa fa-search"></i>&nbsp;Carian</strong></h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <?php
+                $form = ActiveForm::begin([
+                    'id' => 'pantau-kehadiran',
+                    //                            'options' => ['class' => 'form-horizontal'],
+                    'action' => ['idp/statistik-pencapaian-skim'],
+                    'method' => 'get',
+                ])
+                ?>
+
+                <div class="col-xs-6 col-md-3 col-lg-2">
+
+                    <?= Html::dropDownList('tahun', $tahun, ArrayHelper::map(TblYears::findAll(['admin_status' => 1]), 'year', 'year'), ['class' => 'form-control col-md-3 col-sm-3 col-xs-12']); ?>
+                </div>
+                
+                <div class="col-xs-12 col-md-2 col-lg-2">
+                    <?= Html::submitButton('<i class="fa fa-search"></i>&nbsp;Cari', ['class' => 'btn btn-primary']) ?>
+                </div>
+
+                <?php ActiveForm::end() ?>
+                <!-- </div> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="clearfix"></div>
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2><strong><i class="fa fa-line-chart"></i>&nbspStatistik Pencapaian Mata IDP Mengikut Gred Skim Kakitangan Bagi Tahun <?= $tahun ?>
+                    </strong></h2>
+                <div class="pull-right">
+                    <?=
+                    ExportMenu::widget([
+                        'dataProvider' => $dataProvider,
+                        'columns' => $gridColumnsP,
+                        'exportConfig' => [
+                            ExportMenu::FORMAT_TEXT => false,
+                            ExportMenu::FORMAT_HTML => false,
+                            ExportMenu::FORMAT_CSV => false,
+                            ExportMenu::FORMAT_EXCEL => true,
+                            ExportMenu::FORMAT_PDF => false,
+                        ],
+                        'dropdownOptions' => [
+                            //'label' => 'Export All',
+                            'class' => 'btn btn-outline-secondary'
+                        ],
+                        'filename' => 'Statistik Pencapaian Mata IDP Mengikut Gred Skim Kakitangan Bagi Tahun ' . $tahun . ' ' . date('Y-m-d'),
+                        'clearBuffers' => true,
+                        'stream' => false,
+                        'folder' => '@app/web/files/myidp/.',
+                        'linkPath' => '/files/myidp/',
+                        'batchSize' => 10,
+                        //                'deleteAfterSave' => true
+                    ]);
+                    ?></div>
+                <div class="clearfix"></div>
+
+            </div>
+            <div class="x_content">
+                
+                <?= Tabs::widget([
+                            'items' => [
+                                [
+                                    'label' => '',
+                                    'content' => GridView::widget([
+                                                'dataProvider' => $dataProvider,
+                                                //'showFooter' => true,
+                                                'showPageSummary' => true,
+                                                'emptyText' => 'Tiada data ditemui.',
+                                                'formatter' => ['class' => 'yii\i18n\Formatter','nullDisplay' => '<i><b>TIADA DATA</b></i>'], 
+                                                'headerRowOptions' => ['style' => 'background: rgba(52, 73, 94, 0.94); color: #ECF0F1;'],
+                                                'beforeHeader' => [
+                                                    [
+                                                        'columns' => [
+                                                            ['content' => 'BIL', 'options' => ['colspan' => 1, 'rowspan' => 2], 
+                                                                'vAlign' => 'middle',
+                                                                'hAlign' => 'center'],
+                                                            ['content' => 'GRED SKIM', 'options' => ['colspan' => 1, 'rowspan' => 2]],
+                                                            ['content' => 'JUMLAH STAF', 'options' => ['colspan' => 1, 'rowspan' => 2],
+                                                                'vAlign' => 'middle',
+                                                                'hAlign' => 'center'],
+                                                            ['content' => 'CAPAI IDP MINIMUM', 'options' => ['colspan' => 2]],
+                                                            ['content' => 'BELUM CAPAI IDP MINIMUM', 'options' => ['colspan' => 2]],
+                                                            ['content' => 'BELUM ADA MATA IDP', 'options' => ['colspan' => 2]],
+                                                            //['content' => 'Date', 'options' => ['colspan' => 2, 'class' => 'text-center warning']],
+                                                        ],
+                                                    ]
+                                                ],
+                                                'columns' => $gridColumnsP,
+                                            ]),
+                                    'active' => true
+                                ],
+                            ],
+                        ]);
+                ?>
+                
+                
+                
+<!--<div class="clearfix"></div>
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Staf Pentadbiran</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_title">
+            <h2>Keseluruhan</h2><div  class="pull-right">
+            <? 
+            ExportMenu::widget([
+                'dataProvider' => $dataProvider,
+                'columns' => $gridColumnsP,
+                'filename' => 'laporan_myidp_pentadbiran_'.date('Y-m-d'),
+                'clearBuffers' => true,
+                'stream' => false,
+                'folder' => '@app/web/files/myidp/.',
+                'linkPath' => '/files/myidp/',
+                'batchSize' => 10,
+//                'deleteAfterSave' => true
+            ]); 
+            ?></div>
+            <div class="clearfix"></div>
+            
+        </div>
+            <div class="x_content">
+               <? 
+                        GridView::widget([
+                            'dataProvider' => $dataProvider,
+                            //'filterModel' => $kursusJemputan,
+                            'showFooter' => true,
+                            'emptyText' => 'Tiada data ditemui.',
+                            'formatter' => ['class' => 'yii\i18n\Formatter','nullDisplay' => '<i><b>TIADA DATA</b></i>'], 
+                            'headerRowOptions' => ['style' => 'background: rgba(52, 73, 94, 0.94); color: #ECF0F1;'],
+                            'columns' => $gridColumnsP,
+                        ]); ?> 
+            </div>  x_content 
+        </div>
+    </div>
+</div>-->
+
+
+            </div> <!-- x_content -->
+        </div>
+    </div>
+</div>

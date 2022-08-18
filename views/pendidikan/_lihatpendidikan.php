@@ -1,0 +1,55 @@
+<?php 
+use yii\helpers\Html;
+use yii\widgets\DetailView;
+
+?>
+
+<?= DetailView::widget([
+        'model' => $model,
+        'attributes' => [
+            ['label'=>'NO. KP / Paspot',
+             'value'=>$model->ICNO],
+            ['label'=> 'Institusi',
+             'value' => $model->institut->InstNm,
+             'contentOptions' => ['style'=>'width:auto'],
+              'captionOptions' => ['style'=>'width:26%'],
+            ],
+            ['label'=> 'Nama Institusi',
+             'value' => $model->instNm],
+            ['label'=> 'Tahap Pendidikan',
+             'format'=>'raw',
+             'value' =>$model->tahapPendidikan],
+            ['label'=> 'Tajaan',
+             'value' => $model->namapenaja],
+             ['label'=> 'Bon',
+             'value' => $model->bon],
+             ['label'=> 'Jumlah Bon',
+             'value' => $model->jumlahBon],
+            ['label'=> 'Major',
+             'value' => $model->namamajor],
+            ['label'=> 'Major',
+             'value' => $model->namaminor,
+             'visible'=> $model->MinorCd ? true : false],
+            ['label'=> 'Nama Sijil (Malay)',
+             'value' => $model->EduCertTitle],
+            ['label'=> 'Nama Sijil (English)',
+             'value' => $model->EduCertTitleBI],
+            ['label'=> 'No. Siri Sijil',
+             'value' => $model->serialNo],
+            ['label'=> 'Tarikh Mula Pengajian',
+             'value' => $model->StartEduDt ? Yii::$app->MP->Tarikh($model->StartEduDt) : '-',
+              'visible' => $model->HighestEduLevelCd === 1,
+            ],
+            ['label'=> 'Tarikh Dianugerahkan',
+             'value' => Yii::$app->MP->Tarikh($model->ConfermentDt)],
+            ['label'=> 'Gred Keseluruhan',
+             'value' => $model->gredkeseluruhan,
+             'visible'=> $model->OverallGrade ? true:false],
+            ['label'=> 'Status Pengiktirafan',
+             'value' => $model->diiktiraf],
+            ['label'=>'File',
+             'value'=> $model->displayLink,
+             'format' => 'raw',],
+        ],
+    ]) ?>
+

@@ -1,0 +1,758 @@
+<?php
+
+use yii\helpers\Html; 
+use yii\bootstrap\ActiveForm;
+use yii\helpers\Url; 
+use app\models\kemudahan\Reftujuan; 
+use app\models\cbelajar\TblPrestasi;
+use kartik\select2\Select2;
+use dosamigos\datepicker\DatePicker;
+
+error_reporting(0);
+/* @var $this yii\web\View */
+/* @var $model app\models\hronline\Tblprcobiodata */
+
+$this->title = 'Permohonan Cuti Belajar'; 
+?> 
+
+  <?php $form = ActiveForm::begin(['options' => ['class' => 'form-horizontal form-label-left']]); ?>
+
+        <div>
+    <?php echo $this->render('/cutibelajar/_topmenu'); ?>
+</div>
+  <p align="right"><?= Html::a('Kembali', ['lanjutancb/senaraitindakan'], 
+         ['class' => 'btn btn-primary btn-sm']) ?></p>
+
+  <div class="x_panel">
+        <div class="x_content">  
+            <span class="required" style="color:#062f49;">
+                <strong>
+                    <center><?= strtoupper('
+     UNIT PENGEMBANGAN PROFESIONALISME | 
+     SEKTOR PEMBANGUNAN SUMBER MANUSIA<br/><u> PERMOHONAN PENGAJIAN LANJUTAN TEMPOH CUTI BELAJAR KALI
+ '); ?><?= $model->idlanjutan;?>
+                </center>  </strong>
+            </span> 
+        </div>
+    </div>
+  <div class="x_panel">
+    <div class="x_title">
+   <h5 ><strong><i class="fa fa-user"></i> MAKLUMAT PERIBADI</strong></h5>
+   
+   
+   <div class="clearfix"></div>
+</div>      
+   <div class="col-md-3 col-sm-3  profile_left"> 
+        
+
+        <div class="profile_img">
+            <div id="crop-avatar"> <br/><br/>
+                               <center><img src="https://hronline.ums.edu.my/picprofile/picstf/<?= strtoupper(sha1($model->kakitangan->ICNO)); ?>.jpeg" width="150" height="180"></center>
+
+            </div>
+        </div> 
+        <br/> 
+    </div>
+    <div class="col-md-9 col-sm-9 col-xs-9">
+
+        <div class="col-md-12 col-sm-12 col-xs-12">   
+            <br/>
+<!--            <h4 colspan="2" style="background-color:lightseagreen;color:white"><center>MAKLUMAT PERIBADI</center></h4>-->
+                   
+            <table class="table" style="width:100%">
+                
+                <thead>
+                    <tr>
+                        <th colspan="4" class="text-center">
+                <h5><?=  strtoupper($model->kakitangan->CONm); ?> |
+                <?=date("Y") - date("Y", strtotime($model->kakitangan->COBirthDt))." ". "TAHUN"?></h5>
+                </th>
+                </tr>  
+                <tr>
+                    <th colspan="4" class="text-center"> 
+                        <?= strtoupper($model->kakitangan->jawatan->fname);?> | 
+                        <?= strtoupper($model->kakitangan->department->fullname);?>
+                    </th> 
+                </tr>
+                </thead>
+                <tbody>
+
+                    <tr> 
+                        <th style="width:20%">ICNO</th>
+                        <td style="width:20%"><?= $model->kakitangan->ICNO; ?></td> 
+                        <th>UMSPER</th>
+                        <td><?= $model->kakitangan->COOldID; ?></td>  
+
+                    </tr>
+                    <tr> 
+
+                       
+                        <th style="width:20%">TARIKH LANTIKAN</th>
+                        <td style="width:20%"><?= strtoupper($model->kakitangan->displayStartLantik); ?></td>
+                       <th width="20%">TARAF PERKAHWINAN: </th>
+                       <td><?= strtoupper($model->kakitangan->displayTarafPerkahwinan) ?></td> 
+
+                    </tr>
+                    <tr> 
+
+                        <th style="width:20%">TARIKH DISAHKAN DALAM PERKHIDMATAN</th>
+                        <td style="width:20%">  <?php
+                                    if ($model->kakitangan->confirmDt) {
+                                        echo strtoupper($model->kakitangan->confirmDt->tarikhMula);
+                                    } else {
+                                        echo 'Tiada Maklumat';
+                                    }
+                                    ?></td>
+                        <th style="width:20%">TEMPOH BERKHIDMAT SEMASA</th>
+                        <td style="width:20%"><?= strtoupper($model->kakitangan->servPeriodPermanent);  ?></td>
+
+
+                    </tr>
+                     
+                    <tr> 
+                        
+                        <th>EMEL</th>
+                        <td><?= $model->kakitangan->COEmail; ?></td> 
+                        <th style="width:20%">NO. TELEFON</th>
+                        <td style="width:20%"><?= $model->kakitangan->COHPhoneNo; ?></td>
+                    </tr>
+                    
+                    
+                     
+                </tbody>
+            </table> 
+        </div> 
+        <br/>
+
+    </div>
+</div> 
+  <div class="x_panel">
+      <div class="col-md-12 col-sm-12 col-xs-12"> 
+
+<div class="x_title">
+   <h5 ><strong><i class="fa fa-graduation-cap"></i> MAKLUMAT PENGAJIAN</strong></h5>
+   
+   
+   <div class="clearfix"></div>
+</div>      
+
+     <?php if($model->study){
+        
+                ?>  
+            
+
+                    <div class="x_content ">
+
+                 <div class="table-responsive">
+                     
+                        <table class="table table-striped table-sm  table-bordered">
+                            <thead>
+                                
+                                <tr class="headings">
+                                    <th colspan="2" style="background-color:lightseagreen;color:white"><center>
+            
+                                <?php if($b->tahapPendidikan)
+                                {
+                                 echo strtoupper($b->tahapPendidikan);
+                                         
+                                }
+                                
+                              
+?></center></th>
+                                </tr>
+                                <tr> 
+                        <th style="width:10%" align="right">JAWATAN SEMASA CUTI BELAJAR</th>
+                        <td style="width:20%">
+                        <?=strtoupper($model->kakitangan->jawatan->fname) ?></td>
+                       
+                    </tr>
+                    <tr> 
+                          <tr>
+                        <th class="col-md-3 col-sm-3 col-xs-12">ALAMAT (TERKINI):</th>
+                        <td> <?= strtoupper($model->alamat);?> 
+</td> 
+                    </tr>
+                                
+                        <th style="width:10%" align="right">UNIVERSITI/INSTITUSI</th>
+                        <td style="width:20%">
+                                  <?php echo strtoupper($b->InstNm); ?></td></tr>
+                        
+                        
+                   
+                     
+                       
+                 
+                          <tr>
+                 
+                        <th style="width:10%" align="right">BIDANG</th>
+                        <td style="width:20%"><?php
+                        
+                        if(($b->MajorCd == NULL) && ($b->MajorMinor != NULL))
+                        {
+                                echo  strtoupper($b->MajorMinor);
+                        }
+                        elseif (($b->MajorCd != NULL) && ($b->MajorMinor != NULL))  {
+                            echo   strtoupper($b->MajorMinor);
+
+                        }
+                        else
+                        {
+                          echo   strtoupper($b->major->MajorMinor);
+                        }
+                        ?></td></tr>
+                      
+                    
+                     <tr> 
+                                
+                        <th style="width:10%" align="right">MOD PENGAJIAN</th>
+                        <td style="width:20%">
+                            
+                                  <?php if($b->modeID)
+                                  {echo strtoupper($b->mod->studyMode);}
+                                  
+                                  else{
+                                      echo "Tiada Maklumat";
+                                  }
+?></td></tr>
+                     
+                      <tr> 
+                                
+                        <th style="width:10%" align="right">TAJUK PENYELIDIKAN</th>
+                        <td style="width:20%">
+                                  <?php echo strtoupper($b->tajuk_tesis); ?></td></tr>
+                        <tr> 
+                                
+                        <th style="width:10%" align="right">NAMA PENYELIA</th>
+                        <td style="width:20%">
+                                  <?php echo strtoupper($b->nama_penyelia); ?></td></tr>
+                          <tr> 
+                                
+                        <th style="width:10%" align="right">EMEL PENYELIA</th>
+                        <td style="width:20%">
+                                  <?php echo ($b->emel_penyelia); ?></td></tr>
+                    
+                  
+                 
+                    
+                        <tr> 
+                     
+                        <th style="width:10%" align="right">TEMPOH PENGAJIAN LANJUTAN</th>
+                        <td style="width:40%">
+                        <?= strtoupper($b->tarikhmula)?> <b>HINGGA</b> 
+                        <?= strtoupper($b->tarikhtamat)?> (<?= strtoupper($b->tempohtajaan);?>)</td>
+                        </tr>
+                        <tr>
+                        <th style="width:10%" align="right">BIASISWA:</th>
+                        <td><?= ucwords(strtoupper($model->tajaan->nama_tajaan)); ?></td> 
+                    </tr>
+                              <?php }     else{
+                    ?>
+                    <tr>
+                        <td colspan="8" class="text-center"><b>Tiada Rekod Maklumat Pengajian yang dipohon</b></td>                     
+                    </tr>
+                  <?php  
+                } ?> 
+                     
+                    
+                  
+                
+                    
+      
+                            </thead>
+                        
+
+                                
+                      
+                        </table>
+
+                    </div> 
+
+        </div></div>
+  </div>
+ 
+<div class="x_panel">
+    <div class="x_title">
+   <h5><strong><i class="fa fa-clock-o"></i> MAKLUMAT PELANJUTAN TERDAHULU</strong></h5>
+   
+   <div class="clearfix"></div>
+</div>
+<div>
+<form id="w0" class="form-horizontal form-label-left" action="">
+            <table class="table table-sm table-bordered">
+   <thead style="background-color:lightseagreen;color:white">
+       
+        <tr class="headings">
+          <th width="50px" height="20px">BIL</th>
+            <th>TARIKH PELANJUTAN CUTI BELAJAR </th>
+            <th class="column-title text-center">TEMPOH </th>
+            <th class="column-title text-center">PELANJUTAN KALI KE</th>
+            <th class="column-title text-center">JUSTIFIKASI</th>
+
+        </tr>
+        
+        
+        
+
+    </thead>
+    <tbody>
+        
+         <?php if($b->lanjutan){ ?>
+        <?php $bil=1; foreach ($b->lanjutan as $l) { ?>
+<tr>
+<td class="text-center"><?= $bil++ ?></td>
+<td width="35%"> <?= strtoupper(\app\models\cbelajar\TblLanjutan::find()->where(['id'=>$l->id])->one()->stlanjutan)?> 
+                            HINGGA <?= strtoupper(\app\models\cbelajar\TblLanjutan::find()->where(['id'=>$l->id])->one()->ndlanjutan)?></td>
+<td class="text-center">
+
+<?= strtoupper(\app\models\cbelajar\TblLanjutan::find()->where(['id'=>$l->id])->one()->tempohlanjutan)?></td>
+ </td>
+<td class="text-center" width="20%"><?= $l->idlanjutan; ?></td>
+
+<td class="text-center"><?= $l->justifikasi; ?></td>
+
+            
+</tr>
+        <?php }} else{
+                    ?>
+                    <tr>
+                            <td colspan="11" class="text-center"><i>Maaf, Tiada Rekod</i></td>                     
+                        </tr>
+                  <?php  
+                } ?>
+                    
+         
+        
+        
+
+
+
+ </table>
+</form>           </div>
+</div>
+  <div class="x_panel">
+        <div class="x_content">  
+            <span class="required" style="color:#062f49;">
+               <h5 ><strong><i class="fa fa-bar-chart"></i>
+                 LAPORAN KEMAJUAN PENGAJIAN TERKINI KAKITANGAN
+                  <?= Html::a('LAPORAN KEMAJUAN PENGAJIAN', ['lkk/kj-view-lkk','id'=>$model->icno], 
+                          ['class' => 'btn btn-primary btn-sm','target' => "_blank"]) ?> </strong> </h5>
+            </span> 
+        </div>
+    </div>  
+<div class="x_panel">   <div class="x_content">
+        <div class="x_title">
+    <h5 ><strong><i class="fa fa-th-list"></i> MAKLUMAT PRESTASI PENGAJIAN (TERKINI)</strong><br><br>
+       </h5>
+<h6>Ketua Jabatan/Dekan hendaklah mengisi ruang komen prestasi pengajian (terkini). 
+                   Klik Butang "Tambah Ulasan".  </h6>
+            
+
+   
+   
+</div>
+<div class="table-responsive">
+                <table class="table table-sm table-bordered jambo_table table-striped "> 
+<!--                    <tr>
+                    <th scope="col" colspan=12"  style="background-color:white;"><center>MAKLUMAT PRESTASI PENGAJIAN (TERKINI)</center></th>
+
+                     </tr>-->
+                     <tr class="headings">
+                        <th class="column-title text-justify"  width="2%"  style="background-color:lightseagreen;color:white">BIL</th>
+                        <th class="column-title text-center" width="30%"  style="background-color:lightseagreen;color:white">PERKARA</th>
+                        <th class="column-title text-center" width="20%"  style="background-color:lightseagreen;color:white">PERATUSAN/ TARIKH/ BILANGAN</th>
+                        <th class="column-title text-center" width="20%"  style="background-color:lightseagreen;color:white">KOMEN:</th>
+
+                    </tr>
+                     <tr class="headings">
+                    <th scope="col" colspan=12"  style="background-color:lightblue;">PENYELIDIKAN:</th>
+
+                </tr>
+             <?php
+                            if ($doktoral) 
+                            { $no=0;?>
+                            
+                                <?php foreach ($doktoral as $dok) { 
+                                    
+                                    if($dok->id < 7)
+                                    {
+                                      
+                                    $no++; 
+//                                 $mod = \app\models\cbelajar\TblPrestasi::find()->where(['id' => $dok->id, 'idLanjutan'=> 37, 'iklan_id'=>15])->one();
+//                                   $mod = \app\models\cbelajar\TblNilaiSyarat::find()->where(['syarat_id' => $dok->syarat_id, 'icno' => $icno, 'iklan_id'=>$kontrak->iklan_id])->one();
+                                  $mod = \app\models\cbelajar\TblPrestasi::find()->where(['idPrestasi' => $dok->id, 'idLanjutan'=>$model->id,'iklan_id'=>$iklan->id])->one();
+
+                                ?>
+                                <tr>
+                                    <td class="text-center"><?php echo $no; ?></td>
+                                    <td class="text-justify"><?php echo $dok->prestasi; ?></td>
+                                    <td class="text-center"><?php echo $mod->catatan; ?></td>
+                                    <td class="text-center"><?php echo $mod->komen; ?></td>
+                                </tr>
+                                
+                                
+                                    <?php 
+                                    
+                                }}?>
+                                
+<p align="right">
+              
+            
+                <?php
+                if ($model->status_jfpiu == "Diperakukan" || $model->status_jfpiu == "Tidak Diperakukan"){
+                 echo Html::a('Telah Diulas', ['komen-prestasi', 'id'=>$mod->iklan_id, 'i'=>$mod->idlanjutan],
+                ['class' => 'btn btn-success btn-xs disabled']);?>
+             
+                </p>
+            
+       
+                <?php }
+ else {
+   echo Html::a('Tambah Ulasan', ['komen-prestasi', 
+                'id'=>$mod->iklan_id, 'i'=>$mod->idlanjutan], 
+                ['class' => 'btn btn-warning btn-xs']);
+ }
+?>
+                 <tr class="headings">
+                    <th scope="col" colspan=12"  style="background-color:lightblue;">KERJA KURSUS:</th>
+                    
+                </tr>
+                
+                     <?php foreach ($doktoral as $dok) { 
+                                    if($dok->id >= 7)
+                                    {
+                                  
+                                    $no++; 
+                                  $mod = \app\models\cbelajar\TblPrestasi::find()->where(['idPrestasi' => $dok->id, 'idLanjutan'=>$model->id,'iklan_id'=>$iklan->id])->one();
+
+                                ?>
+                                <tr>
+                                    <td class="text-center"><?php echo $no; ?></td>
+                                    <td class="text-justify"><?php echo $dok->prestasi; ?></td>
+                                    <td class="text-center"><?php echo $mod->catatan; ?></td>
+                                    <td class="text-center"><?php echo $mod->komen; ?></td>
+
+
+                                   
+                                </tr>
+                                
+                                
+                                    <?php 
+                                    
+                                    }
+                                    }
+                               
+//                             }
+                            }
+                            ?>
+
+                   
+            
+
+                    
+                    
+
+                     
+                </table>
+
+</div> </div></div>
+
+<div class="x_panel">
+    <div class="x_title">
+    <h5 ><strong><i class="fa fa-th-list"></i> MAKLUMAT PERMOHONAN</strong><br><br>
+       </h5>
+   
+   
+</div>
+        <div class="x_content">
+        <div class="table-responsive">
+                <table class="table table-sm table-bordered jambo_table table-striped"> 
+                <th scope="col" colspan=12" style="background-color:lightseagreen;color:white"><center>PELANJUTAN BAHARU YANG DIPOHON</center></th>
+
+                    <tr>
+                        <th class="col-md-3 col-sm-3 col-xs-12">TEMPOH MASA (BULAN):</th>
+                        <td> <?= $model->tempohlanjutan;?></td>
+</td> 
+                    </tr>
+                  <tr>
+                        <th class="col-md-3 col-sm-3 col-xs-12">TARIKH MULA:</th>
+                        <td width="35%"><?= $model->lanjutansdt?> HINGGA <?=$model->lanjutanedt?></td>
+
+                    </tr>
+                <tr>
+                        <th class="col-md-3 col-sm-3 col-xs-12">JUSTIFIKASI PELANJUTAN:</th>
+                        <td> <?= $model->justifikasi;?></td>
+</td> 
+                    </tr>
+                  <tr class="headings">
+                        <th class="col-md-3 col-sm-3 col-xs-12">SURAT SOKONGAN DAN PERAKUAN PENYELIA:</th>
+                        
+                     
+                    <td class="text-justify">
+                            <?php if($model->dokumen_sokongan)
+                            {?>
+                            <a class="form-control" style="background-color: 
+                                             transparent;border:0;box-shadow: none;" href="<?= Url::to(Yii::$app->FileManager->DisplayFile($model->dokumen_sokongan), true); ?>" target="_blank" > <i class="fa fa-download"></i> <strong><small><u>MUAT TURUN DOKUMEN</small></u></strong></a><br>
+                            <?php }else{
+                                
+                                echo 'Tiada Maklumat';
+                            }
+?> </td> 
+               
+                        
+
+                        
+                    </tr>
+                    <tr class="headings">
+                        <th class="col-md-3 col-sm-3 col-xs-12">PERANCANGAN PENGAJIAN (STUDY PLAN) TERDAHULU:</th>
+                        
+                     
+<td class="text-justify">
+                            <?php if($model->dokumen)
+                            {?>
+                            <a class="form-control" style="background-color: 
+                                             transparent;border:0;box-shadow: none;" href="<?= Url::to(Yii::$app->FileManager->DisplayFile($model->dokumen), true); ?>" target="_blank" > <i class="fa fa-download"></i> <strong><small><u>MUAT TURUN DOKUMEN</small></u></strong></a><br>
+                            <?php }else{
+                                
+                                echo 'Tiada Maklumat';
+                            }
+?> </td>      
+               
+                        
+
+                        
+                    </tr>
+                    <tr class="headings">
+                        <th class="col-md-3 col-sm-3 col-xs-12">PERANCANGAN PENGAJIAN YANG DIUBAHSUAI:<br>
+                          <small><i>MENGAMBIL KIRA TEMPOH PELANJUTAN YANG DIPOHON</th>
+                        
+                     
+<td class="text-justify">
+                            <?php if($model->dokumen2)
+                            {?>
+                            <a class="form-control" style="background-color: 
+                                             transparent;border:0;box-shadow: none;" href="<?= Url::to(Yii::$app->FileManager->DisplayFile($model->dokumen2), true); ?>" target="_blank" > <i class="fa fa-download"></i> <strong><small><u>MUAT TURUN DOKUMEN</small></u></strong></a><br>
+                            <?php }else{
+                                
+                                echo 'Tiada Maklumat';
+                            }
+?> </td> 
+                        
+               
+                        
+
+                        
+                    </tr>
+                   <tr class="headings">
+                        
+                        <th class="col-md-3 col-sm-3 col-xs-12">LAPORAN KEMAJUAN PENGAJIAN:</th>
+          <?php 
+                  
+          if($lkk)
+          {
+                  if((!$lkk->status_bsm == "Admin Manually Upload")) 
+                      
+                      {?>
+                  <td> 
+                    <?= Html::a('<i class="fa fa-check  fa-lg aria-hidden="true"   style="color: green"></i> <small>TELAH DIHANTAR</small>', 
+                        ['lkk/tindakan-kj?id='.$lkk->reportID.'&&i='.$lkk->id], ['class' => 'btn btn-default btn-xs']) ?>
+                    <?= $lkk->tarikh_hantar; ?> <?php   
+                    
+                      }
+                
+                      else{ ?>
+                  
+                                  <td class="text-justify">  <?= Html::a('<i class="fa fa-check  fa-lg aria-hidden="true"   style="color: green"></i> <small>TELAH DIHANTAR</small>', 
+                        ['lkk/lihat-borang-kj', "id"=> $lkk->reportID], ['class' => 'btn btn-default btn-xs']) ?>
+                    <?= $lkk->tarikh_hantar; ?><br>
+ </td>
+                                               <?php }
+                    
+                
+          }                                  
+        
+       else{
+                    ?>
+                  
+                        <td colspan="8"><b>Tiada Maklumat</b></td>                     
+                    
+                  <?php  
+                }
+                
+                
+?> 
+                 
+                                             
+
+                        
+                    </tr>
+                    
+                    <tr class="headings">
+                        
+                        <th class="col-md-3 col-sm-3 col-xs-12"> TRANSKRIP KEPUTUSAN PEPERIKSAAN:</th>
+          <?php 
+                 
+                    
+                    if ($model->upload->dokumen_sokongan2) { ?>
+                  
+                                  <td class="text-justify"> <a class="form-control" style="background-color: transparent;border:0;box-shadow: none;" 
+                                                               href="<?= Url::to(Yii::$app->FileManager->DisplayFile($model->dokumen_sokongan2), true); ?>"
+                                                               target="_blank" ><i class="fa fa-download"></i> <strong><small><u>MUAT TURUN DOKUMEN
+                                              </small></u></strong></a><br>
+ </td>
+                                               <?php }
+        
+       else{
+                    ?>
+                  
+                        <td colspan="8"><b>Tiada Maklumat</b></td>                     
+                    
+                  <?php  
+                }
+                
+                
+?> 
+                 
+                                             
+
+                        
+                    </tr>
+                   
+                    
+                    <tr class="headings">
+                        <th class="col-md-3 col-sm-3 col-xs-12">TARIKH MOHON:</th>
+                        <td> <?= $model->tarikh_mohon;?>  </td>
+
+                        
+                    </tr>
+                    
+                   
+                </table>
+            </div>  
+        
+       </div>  </div>
+  <div class="row" > 
+    <div class="col-xs-12 col-md-12 col-lg-12"> 
+
+    <div class="x_panel">
+        <div class="x_title">
+            <h5><strong><i class="fa fa-check-square"></i> PERAKUAN PEMOHON </strong></h5>
+           
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+             <h3 style="color:grey;" ><small><center>Saya mengaku  semua keterangan di atas adalah benar dan jika saya didapati memberi
+                    maklumat palsu, saya bersetuju permohonan ini (jika telah diluluskan) 
+                    akan terbatal dengan sendirinya dan boleh diambil tindakan perundangan.</center></small> </h3>
+            <h4 style="color:grey;"><small><center>Tarikh Hantar: <?php echo $model->tarikhmohon;?></center></small></h4><br/>
+        </div>
+    </div>
+</div>
+    
+</div>
+<div class="row">
+<div class="col-xs-12 col-md-12 col-lg-12" style="display: <?php echo $view;?>"> 
+    <div class="x_panel">
+<!--        <div class="x_title">
+           
+            <div style=" background-color: #E8E5E4; width:1034px;height:30px;border:0px solid #000;"><h2><strong>&nbsp;MAKLUMAT PEMOHON</strong></h2> </div>
+                    <div class="clearfix"></div>
+        </div>-->
+        <div class="x_content">
+        <div class="table-responsive">
+                <table class="table table-sm table-bordered jambo_table table-striped"> 
+                <th scope="col" colspan=12"  style="background-color:white;"><center>STATUS PERAKUAN KETUA JABATAN</center></th>
+
+                    <tr>
+                        <th class="col-md-3 col-sm-3 col-xs-12">STATUS PERAKUAN:</th>
+                        <td> <?= $model->status_jfpiu;?></td>
+</td> 
+                    </tr>
+                  <tr>
+                        <th class="col-md-3 col-sm-3 col-xs-12">ULASAN:</th>
+                        <td> <?= $model->ulasan_jfpiu;?>  </td>
+
+                    </tr>
+                <tr>
+                        <th class="col-md-3 col-sm-3 col-xs-12">TARIKH DIPERAKUKAN:</th>
+                        <td> <?= $model->app_date;?></td>
+
+                    </tr>
+          
+                </table>
+            </div>  
+        
+       </div>  </div>
+</div>     
+</div>
+
+ <div class="row">
+  <!-- Perakuan Ketua Jabatan -->
+<div class="col-xs-12 col-md-12 col-lg-12" style="display: <?php echo $edit;?>"> 
+    <div class="x_panel">
+        <div class="x_title">
+            <h5><strong><i class="fa fa-check"></i> PERAKUAN KETUA JABATAN/DEKAN</strong></h5>
+            
+            <div class="clearfix"></div>
+        </div>
+        <br>
+        <div class="form-group">
+           
+                <label class="control-label col-md-3 col-sm-3 col-xs-3" for="wp_id">STATUS PERAKUAN<span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    <?=
+                    $form->field($model, 'status_jfpiu')->label(false)->widget(Select2::classname(), [
+                        'data' => ['Diperakukan' => 'PERMOHONAN DISOKONG', 'Tidak Diperakukan' => 'PERMOHONAN TIDAK DISOKONG'],
+                        'options' => ['placeholder' => 'Pilih', 'class' => 'form-control col-md-7 col-xs-12',
+                            'onchange' => 'javascript:if ($(this).val() == "Diperakukan"){
+                        $("#ulasan").show();$("#ulasan1").show();
+                        }
+                        else if($(this).val() == "Tidak Diperakukan"){
+                        $("#ulasan1").show();$("#ulasan").hide();}
+                        
+                        else{$("#ulasan").hide();$("#ulasan1").hide()
+                        }'
+                        ],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],
+                        
+                       
+                    ]);
+                    ?>
+                </div>
+        </div>
+<!--        <div class="form-group" id="ulasan" style="display: none" align="center">
+        <div style="width: 580px; height: 130px;border:2px solid red">
+            <br><p align="left">&nbsp;Saya mengambil maklum bahawa telah menerima permohonan pelanjutan tempoh cuti belajar bagi <br>
+               &nbsp;1. Tarikh dan tempoh cuti belajar sesuai.<br>
+               &nbsp;2. Fungsi JFPIU tidak akan terjejas sepanjang ketidakberadaan kakitangan.<br>
+               &nbsp;3. Saya bersetuju untuk memberi pelepasan kepada beliau tanpa staf gantian.</p>
+            </div>
+        </div>        -->
+        <div class="form-group" id="ulasan1" style="display: none" align="center">
+            <h5 style="font-size:120%;" class="text-justify"> 
+                </h5>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">ULASAN <span class="required">*</span>
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <?= $form->field($model, 'ulasan_jfpiu')->textArea(['maxlength' => true, 'rows' => 4])->label(false); ?>
+                </div>
+        </div>
+        
+            <div class="ln_solid"></div>
+           <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                <?= Html::submitButton('Hantar', ['class' => 'btn btn-success']) ?>
+                <button class="btn btn-primary" type="reset">Reset</button> 
+            </div>
+    </div>
+</div>
+        
+
+    </div>
+     <?php ActiveForm::end(); ?>
+   
+
+
+
+

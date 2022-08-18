@@ -1,0 +1,149 @@
+{
+    "name": "yiisoft/yii2-app-basic",
+    "description": "Yii 2 Basic Project Template",
+    "keywords": [
+        "yii2",
+        "framework",
+        "basic",
+        "project template"
+    ],
+    "homepage": "http://www.yiiframework.com/",
+    "type": "project",
+    "license": "BSD-3-Clause",
+    "support": {
+        "issues": "https://github.com/yiisoft/yii2/issues?state=open",
+        "forum": "http://www.yiiframework.com/forum/",
+        "wiki": "http://www.yiiframework.com/wiki/",
+        "irc": "irc://irc.freenode.net/yii",
+        "source": "https://github.com/yiisoft/yii2"
+    },
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=5.4.0",
+        "yiisoft/yii2": "~2.0.14",
+        "yiisoft/yii2-bootstrap": "~2.0.0",
+        "yiisoft/yii2-swiftmailer": "~2.0.0",
+        "monolog/monolog": "1.0.*",
+        "kartik-v/yii2-widget-select2": "dev-master",
+        "yiister/yii2-gentelella": "~1.0",
+        "2amigos/yii2-google-maps-library": "*",
+        "kartik-v/yii2-widget-growl": "*",
+        "2amigos/yii2-date-picker-widget": "~1.0",
+        "kartik-v/yii2-widget-spinner": "dev-master",
+        "2amigos/yii2-chartjs-widget": "~2.0",
+        "aryelds/yii2-sweet-alert": "@dev",
+        "sibilino/yii2-openlayers": "*",
+        "kartik-v/yii2-mpdf": "dev-master",
+        "kartik-v/yii2-export": "dev-master",
+        "kartik-v/yii2-widget-fileinput": "dev-master",
+        "mpdf/mpdf": "~8.0",
+        "2amigos/yii2-highcharts-widget": "~1.0",
+        "kartik-v/yii2-dialog": "@dev",
+        "symfony/dom-crawler": "2.8",
+        "symfony/css-selector": "2.8",
+        "wbraganca/yii2-dynamicform": "dev-master",
+        "kartik-v/yii2-widget-switchinput": "dev-master",
+        "kartik-v/yii2-widgets": "*",
+        "kartik-v/yii2-widget-timepicker": "*",
+        "kartik-v/yii2-widget-datetimepicker": "*",
+        "kartik-v/yii2-sortable-input": "dev-master",
+        "ercling/yii2-pace": "dev-master",
+        "kartik-v/yii2-grid": "dev-master",
+        "kartik-v/yii2-dynagrid": "dev-master",
+        "linslin/yii2-curl": "*",
+        "kartik-v/yii2-tabs-x": "dev-master",
+        "bower-asset/sweetalert": "1.1.*",
+        "et-soft/yii2-widget-select-year": "*",
+        "yiisoft/yii2-bootstrap4": "@dev",
+        "kartik-v/yii2-popover-x": "dev-master",
+        "kartik-v/yii2-builder": "@dev",
+        "kartik-v/yii2-datecontrol": "^1.9",
+        "phpoffice/phpspreadsheet": "^1.9",
+        "2amigos/qrcode-library": "~1.1",
+        "khanamiryan/qrcode-detector-decoder": "^1.0",
+        "kartik-v/yii2-checkbox-x": "dev-master",
+        "kartik-v/yii2-detail-view": "dev-master",
+        "kartik-v/yii2-editable": "dev-master",
+        "kartik-v/yii2-number": "dev-master",
+        "vova07/yii2-console-runner-extension": "*",
+        "toriphes/yii2-console-runner": "*",
+        "tebazil/yii2-console-runner": "^0.0.0",
+        "kartik-v/yii2-date-range": "dev-master",
+        "faryshta/yii2-disable-submit-buttons": "~2.0.0",
+        "marekpetras/yii2-calendarview-widget": "^1.0",
+        "2amigos/yii2-tinymce-widget": "~1.1",
+        "kop/yii2-scroll-pager": "dev-master",
+        "yii2tech/spreadsheet": "^1.0",
+        "mk-j/php_xlsxwriter": "^0.37.0",
+        "yiisoft/yii2-queue": "^2.3",
+        "yiisoft/yii2-redis": "~2.0.0",
+        "codemix/yii2-localeurls": "^1.7",
+        "bizley/migration": "^3.1",
+        "kartik-v/yii2-password": "@dev",
+        "philippfrenzel/yii2fullcalendar": "~3.8.0.1",
+        "codemix/yii2-excelexport": "^2.7",
+        "2amigos/yii2-date-time-picker-widget": "~1.0",
+        "loveorigami/yii2-modal-ajax": "@dev",
+        "igorvolnyi/yii2-modal-ajax-multiple": "*",
+        "thamtech/yii2-uuid": "^1.2",
+        "yiisoft/yii2-imagine": "^2.3",
+        "notamedia/yii2-sentry": "^1.7",
+        "cleevefb/hr-user": "dev-master",
+        "coderius/yii2-hit-counter": "1.0.2.2",
+        "kongoon/yii2-orgchart": "^0.0.2",
+        "kartik-v/yii2-widget-rating": "dev-master",
+        "brussens/yii2-maintenance-mode": "*"
+    },
+    "require-dev": {
+        "yiisoft/yii2-debug": "~2.0.0",
+        "yiisoft/yii2-gii": "~2.0.0",
+        "yiisoft/yii2-faker": "~2.0.0",
+        "codeception/base": "^2.2.3",
+        "codeception/verify": "~0.3.1",
+        "codeception/specify": "~0.4.3"
+    },
+    "config": {
+        "process-timeout": 1800,
+        "fxp-asset": {
+            "enabled": false
+        },
+        "allow-plugins": {
+            "yiisoft/yii2-composer": true
+        }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "yii\\composer\\Installer::postInstall"
+        ],
+        "post-create-project-cmd": [
+            "yii\\composer\\Installer::postCreateProject",
+            "yii\\composer\\Installer::postInstall"
+        ]
+    },
+    "extra": {
+        "yii\\composer\\Installer::postCreateProject": {
+            "setPermission": [
+                {
+                    "runtime": "0777",
+                    "web/assets": "0777",
+                    "yii": "0755"
+                }
+            ]
+        },
+        "yii\\composer\\Installer::postInstall": {
+            "generateCookieValidationKey": [
+                "config/web.php"
+            ]
+        }
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        },
+        {
+            "type": "vcs",
+            "url": "https://[USERNAME]@gitlab.com/cleevefb/hr-user.git"
+        }
+    ]
+}

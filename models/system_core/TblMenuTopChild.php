@@ -1,0 +1,62 @@
+<?php
+
+namespace app\models\system_core;
+
+use Yii;
+
+/**
+ * This is the model class for table "system_core.tbl_menu_top".
+ *
+ * @property int $id
+ * @property int $order
+ * @property string $label
+ * @property string $url
+ * @property int $icon_id
+ * @property string $visible
+ * @property int $parent_id
+ * @property int $status
+ */
+class TblMenuTopChild extends \yii\db\ActiveRecord
+{
+    /**
+     * {@inheritdoc}
+     */
+    public static function tableName()
+    {
+        return 'system_core.tbl_menu_top';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function rules()
+    {
+        return [
+//            [['order', 'icon_id', 'parent_id', 'status'], 'integer'],
+//            [['label'], 'string', 'max' => 50],
+//            [['url', 'visible'], 'string', 'max' => 100],
+            [['label', 'url'], 'required'],
+            [['order', 'icon_id', 'parent_id', 'status'], 'integer'],
+            [['label'], 'string', 'max' => 150],
+            [['url'], 'string', 'max' => 255],
+            [['visible'], 'string'],
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'order' => 'Order',
+            'label' => 'Label',
+            'url' => 'Url',
+            'icon_id' => 'Icon ID',
+            'visible' => 'Visible',
+            'parent_id' => 'Parent ID',
+            'status' => 'Status',
+        ];
+    }
+}

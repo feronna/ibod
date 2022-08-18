@@ -1,0 +1,70 @@
+<?php
+
+namespace app\models\elnpt;
+
+use yii\base\Model;
+use yii\data\ActiveDataProvider;
+use app\models\elnpt\TblKumpGred;
+
+/**
+ * TblKumpGredSearch represents the model behind the search form of `app\models\elnpt\TblKumpGred`.
+ */
+class TblKumpGredSearch extends TblKumpGred
+{
+    /**
+     * {@inheritdoc}
+     */
+    public function rules()
+    {
+        return [
+            [['id', 'ref_kump_gred_id', 'gred_id'], 'integer'],
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function scenarios()
+    {
+        // bypass scenarios() implementation in the parent class
+        return Model::scenarios();
+    }
+
+    /**
+     * Creates data provider instance with search query applied
+     *
+     * @param array $params
+     *
+     * @return ActiveDataProvider
+     */
+    public function search($params)
+    {
+        $query = TblKumpGred::find()->orderBy(['id' => SORT_DESC]);
+
+        // add conditions that should always apply here
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 10,
+                ],
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+
+        // grid filtering conditions
+        $query->andFilterWhere([
+            'id' => $this->id,
+            'ref_kump_gred_id' => $this->ref_kump_gred_id,
+            'gred_id' => $this->gred_id,
+        ]);
+
+        return $dataProvider;
+    }
+}
